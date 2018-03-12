@@ -31,8 +31,7 @@ const ALIGNMENT = 8
 
 include("metadata.jl")  # flatbuffer defintions
 include("utils.jl")
-include("source.jl")
-# include("sink.jl")
+include("read.jl")
 
 
 end # module
