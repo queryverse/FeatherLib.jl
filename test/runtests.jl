@@ -17,7 +17,8 @@ temps = []
 @testset "ReadWrite" begin
     for f in files
         println("tesing $f...")
-        columns, headers = featherread(f)
+         res = featherread(f)
+         columns, headers = res.columns, res.names
 
         ncols = length(columns)
         nrows = length(columns[1])
@@ -25,9 +26,10 @@ temps = []
         temp = tempname()
         push!(temps, temp)
 
-        featherwrite(temp, columns, headers)
+        featherwrite(temp, columns, headers, description=res.description, metadata=res.metadata)
 
-        columns2, headers2 = featherread(temp)
+         res2 = featherread(temp)
+         columns2, headers2 = res2.columns, res2.names
 
         @test length(columns2) == ncols
 
@@ -41,9 +43,8 @@ temps = []
             end
         end
 
-    # @test source.ctable.description == sink.ctable.description
-    # @test source.ctable.num_rows == sink.ctable.num_rows
-    # @test source.ctable.metadata == sink.ctable.metadata
+    @test res.description == res2.description
+    @test res.metadata == res2.metadata
     # for (col1,col2) in zip(source.ctable.columns,sink.ctable.columns)
     #     @test col1.name == col2.name
     #     @test col1.metadata_type == col2.metadata_type

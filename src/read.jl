@@ -1,3 +1,10 @@
+struct ResultSet
+    columns::AbstractVector{AbstractVector}
+    names::Vector{Symbol}
+    description::String
+    metadata::String
+end
+
 function featherread(filename::AbstractString; use_mmap=true)
     data = loadfile(filename, use_mmap=use_mmap)
     ctable = getctable(data)
@@ -5,7 +12,7 @@ function featherread(filename::AbstractString; use_mmap=true)
     colnames = [Symbol(col.name) for col in ctable.columns]
     coltypes = [juliatype(col) for col in ctable.columns]
     columns = ArrowVector[constructcolumn(coltypes[i], data, ctable.columns[i]) for i in 1:ncols]
-    return columns, colnames
+    return ResultSet(columns, colnames, ctable.description, ctable.metadata)
 end
 
 #=====================================================================================================
