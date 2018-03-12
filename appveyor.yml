@@ -5,9 +5,15 @@ environment:
   - JULIA_URL: "https://julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.exe"
   - JULIA_URL: "https://julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.exe"
 
+matrix:
+  allow_failures:
+  - JULIA_URL: "https://julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.exe"
+  - JULIA_URL: "https://julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.exe"
+
 branches:
   only:
     - master
+    - /release-.*/
 
 notifications:
   - provider: Email
@@ -34,7 +40,7 @@ build_script:
   - IF EXIST .git\shallow (git fetch --unshallow)
   - C:\projects\julia\bin\julia -e "Pkg.clone(\"https://github.com/ExpandingMan/Arrow.jl\")"
   - C:\projects\julia\bin\julia -e "versioninfo();
-      Pkg.clone(pwd(), \"Feather\"); Pkg.build(\"Feather\")"
+      Pkg.clone(pwd(), \"FeatherLib\"); Pkg.build(\"FeatherLib\")"
 
 test_script:
-  - C:\projects\julia\bin\julia -e "Pkg.test(\"Feather\")"
+  - C:\projects\julia\bin\julia -e "Pkg.test(\"FeatherLib\")"
