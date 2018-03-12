@@ -6,7 +6,7 @@ using FlatBuffers, CategoricalArrays
 
 using Compat.Sys: iswindows
 
-export featherread
+export featherread, featherwrite
 
 if Base.VERSION < v"0.7.0-DEV.2575"
     const Dates = Base.Dates
@@ -32,6 +32,7 @@ const ALIGNMENT = 8
 include("metadata.jl")  # flatbuffer defintions
 include("utils.jl")
 include("read.jl")
+include("sink.jl")
 
 
 end # module
