@@ -1,25 +1,22 @@
-sudo: required
-
 language: julia
-
-services:
-  - docker
-
 os:
   - osx
   - linux
-
 julia:
   - 0.6
   - nightly
-
 notifications:
   email: false
-
+branches:
+  only:
+  - master
+  - /release-.*/
+  - /v(\d+)\.(\d+)\.(\d+)/
+matrix:
+  allow_failures:
+  - julia: nightly  
 install:
   - julia -e 'Pkg.clone("https://github.com/ExpandingMan/Arrow.jl")'
 
 after_success:
-  - julia -e 'cd(Pkg.dir("Feather")); Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
-  - julia -e 'Pkg.add("Documenter")'
-  - julia -e 'cd(Pkg.dir("Feather")); include(joinpath("docs", "make.jl"))'
+  - julia -e 'cd(Pkg.dir("FeatherLib")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
