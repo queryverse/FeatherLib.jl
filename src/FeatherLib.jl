@@ -1,11 +1,12 @@
 __precompile__(true)
-module Feather
+module FeatherLib
 
 using Arrow, Compat
-using FlatBuffers, CategoricalArrays, DataStreams, DataFrames
+using FlatBuffers, CategoricalArrays
 
 using Compat.Sys: iswindows
 
+export featherread
 
 if Base.VERSION < v"0.7.0-DEV.2575"
     const Dates = Base.Dates
@@ -18,10 +19,7 @@ if Base.VERSION ≥ v"0.7.0-DEV.2009"
     using Mmap
 end
 
-export Data
-
 import Base: length, size, read, write
-import DataFrames: DataFrame
 import Arrow.nullcount
 
 
@@ -29,13 +27,12 @@ const FEATHER_VERSION = 2
 # wesm/feather/cpp/src/common.h
 const FEATHER_MAGIC_BYTES = Vector{UInt8}(codeunits("FEA1"))
 const ALIGNMENT = 8
-const SHOULD_USE_MMAP = !iswindows()
 
 
 include("metadata.jl")  # flatbuffer defintions
 include("utils.jl")
 include("source.jl")
-include("sink.jl")
+# include("sink.jl")
 
 
 end # module

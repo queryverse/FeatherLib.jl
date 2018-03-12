@@ -17,9 +17,9 @@ function checkfilelength(filename::AbstractString, data::AbstractVector{UInt8})
     end
 end
 
-function loadfile(filename::AbstractString; use_mmap::Bool=SHOULD_USE_MMAP)
+function loadfile(filename::AbstractString; use_mmap::Bool=true)
     isfile(filename) || throw(ArgumentError("'$file' is not a valid file."))
-    data = SHOULD_USE_MMAP ? Mmap.mmap(filename) : read(filename)
+    data = use_mmap ? Mmap.mmap(filename) : read(filename)
     checkmagic(filename, data)
     checkfilelength(filename, data)
     data
@@ -45,16 +45,4 @@ function getctable(data::AbstractVector{UInt8})
         @warn("This feather file is old and may not be readable.")
     end
     ctable
-end
-
-
-function Data.schema(ctable::Metadata.CTable)
-    ncols = length(ctable.columns)
-    header = Vector{String}(uninitialized, ncols)
-    types = Vector{Type}(uninitialized, ncols)
-    for (i, col) ∈ enumerate(ctable.columns)
-        header[i] = col.name
-        types[i] = juliatype(col)
-    end
-    Data.Schema(types, header, ctable.num_rows)
 end
