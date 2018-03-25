@@ -16,6 +16,7 @@ matrix:
   allow_failures:
   - julia: nightly  
 install:
+  - julia -e 'Pkg.clone("https://github.com/ExpandingMan/Arrow.jl.git")'
   - julia -e 'Pkg.clone("https://github.com/davidanthoff/FeatherLib.jl")'
 
 after_success:
