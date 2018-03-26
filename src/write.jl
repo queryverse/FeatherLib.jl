@@ -1,7 +1,7 @@
 function featherwrite(filename::AbstractString, columns, colnames; description::AbstractString="", metadata::AbstractString="")
     ncol = length(columns)
     nrows = length(columns[1])
-    cols = ArrowVector[arrowformat(col) for col in columns]
+    cols = ArrowVector[arrowformat(_first_col_convert_pass(col)) for col in columns]
     
     open(filename, "w+") do io
         writepadded(io, FEATHER_MAGIC_BYTES)
@@ -12,6 +12,15 @@ function featherwrite(filename::AbstractString, columns, colnames; description::
         write(io, FEATHER_MAGIC_BYTES)
     end
     return nothing
+end
+
+# NOTE: the below is very inefficient, but we are forced to do it by the Feather format
+# Feather requires us to encode any vector that doesn't have a missing value
+# as a normal list.
+_first_col_convert_pass(col) = col
+function _first_col_convert_pass(col::AbstractVector{Union{T,Missing}}) where T
+    hasmissing = Compat.findfirst(ismissing, col)
+    return hasmissing == nothing ? convert(AbstractVector{T}, col) : col
 end
 
 function Metadata.PrimitiveArray(A::ArrowVector{J}, off::Integer, nbytes::Integer) where J
