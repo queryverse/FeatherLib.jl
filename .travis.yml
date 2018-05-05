@@ -15,8 +15,5 @@ branches:
 matrix:
   allow_failures:
   - julia: nightly  
-install:
-  - julia -e 'Pkg.clone("https://github.com/ExpandingMan/Arrow.jl.git")'
-
 after_success:
   - julia -e 'cd(Pkg.dir("FeatherLib")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
