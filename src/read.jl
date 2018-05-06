@@ -18,11 +18,11 @@ end
 #=====================================================================================================
     new column construction stuff
 =====================================================================================================#
-length(p::Metadata.PrimitiveArray) = p.length
+Base.length(p::Metadata.PrimitiveArray) = p.length
 
 startloc(p::Metadata.PrimitiveArray) = p.offset+1
 
-nullcount(p::Metadata.PrimitiveArray) = p.null_count
+Arrow.nullcount(p::Metadata.PrimitiveArray) = p.null_count
 
 function bitmasklength(p::Metadata.PrimitiveArray)
     nullcount(p) == 0 ? 0 : padding(bytesforbits(length(p)))

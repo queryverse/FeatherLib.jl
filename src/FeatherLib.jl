@@ -16,10 +16,6 @@ else
     import Dates
 end
 
-import Base: length, size, read, write
-import Arrow.nullcount
-
-
 const FEATHER_VERSION = 2
 # wesm/feather/cpp/src/common.h
 const FEATHER_MAGIC_BYTES = Vector{UInt8}(codeunits("FEA1"))
