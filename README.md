@@ -15,3 +15,7 @@ expose user friendly APIs for file IO.
 End users are encouraged to use either [FeatherFiles.jl](https://github.com/davidanthoff/FeatherFiles.jl)
 or [Feather.jl](https://github.com/JuliaData/Feather.jl) to interact
 with feather files.
+
+[ExpandingMan](https://github.com/ExpandingMan) deserves most of the credit
+for the code in this package: his code in the [Feather.jl](https://github.com/JuliaData/Feather.jl)
+package was the starting point for this package here.
