@@ -16,6 +16,9 @@ End users are encouraged to use either [FeatherFiles.jl](https://github.com/davi
 or [Feather.jl](https://github.com/JuliaData/Feather.jl) to interact
 with feather files.
 
-[ExpandingMan](https://github.com/ExpandingMan) deserves most of the credit
-for the code in this package: his code in the [Feather.jl](https://github.com/JuliaData/Feather.jl)
-package was the starting point for this package here.
+[Douglas Bates](https://github.com/dmbates), [ExpandingMan](https://github.com/ExpandingMan)
+and [Jacob Quinn](https://github.com/quinnj) deserve most of the credit
+for the code in this package: their code in the [Feather.jl](https://github.com/JuliaData/Feather.jl)
+package was the starting point for this package here. They are of course
+not responsible for any errors introduced by myself in this package
+here.
