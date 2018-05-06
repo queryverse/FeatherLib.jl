@@ -1,13 +1,5 @@
 using FeatherLib, Compat.Test, Missings
-using Compat.Random
-
-if Base.VERSION < v"0.7.0-DEV.2575"
-    const Dates = Base.Dates
-    using Compat.GC
-    const GC = Compat.GC
-else
-    import Dates
-end
+using Compat.Random, Compat.Dates, Compat.GC
 
 testdir = joinpath(@__DIR__, "data")
 files = map(x -> joinpath(testdir, x), readdir(testdir))
