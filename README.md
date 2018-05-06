@@ -16,6 +16,30 @@ End users are encouraged to use either [FeatherFiles.jl](https://github.com/davi
 or [Feather.jl](https://github.com/JuliaData/Feather.jl) to interact
 with feather files.
 
+## Getting Started
+
+The package exports two functions: ``featherread`` and ``featherwrite``.
+
+Use the ``featherread`` function to read a feather file:
+````julia
+data = featherread("testfile.feather")
+````
+
+``data`` will then be of type ``ResultSet``. The field ``columns`` is a
+vector of vectors and holds the actual data columns. The field ``names``
+returns the names of the columns. The ``description`` and ``metadata``
+fields return additional data from the feather file.
+
+Use the ``featherwrite`` function to write a feather file:
+````julia
+featherwrite("testfile.feather", column_data, column_names)
+````
+
+``columns`` should be a vector of vectors that holds the data to be written.
+``column_names`` should be a vector of ``Symbol``s with the column names.
+
+## Acknowledgements
+
 [Douglas Bates](https://github.com/dmbates), [ExpandingMan](https://github.com/ExpandingMan)
 and [Jacob Quinn](https://github.com/quinnj) deserve most of the credit
 for the code in this package: their code in the [Feather.jl](https://github.com/JuliaData/Feather.jl)
