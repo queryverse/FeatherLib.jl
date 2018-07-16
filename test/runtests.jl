@@ -1,5 +1,5 @@
-using FeatherLib, Compat.Test, Missings
-using Compat.Random, Compat.Dates, Compat.GC
+using FeatherLib, Missings, Dates, CategoricalArrays, Random, Arrow
+using Test
 
 temps = []
 

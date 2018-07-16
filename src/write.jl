@@ -19,7 +19,7 @@ end
 # as a normal list.
 _first_col_convert_pass(col) = col
 function _first_col_convert_pass(col::AbstractVector{Union{T,Missing}}) where T
-    hasmissing = Compat.findfirst(ismissing, col)
+    hasmissing = findfirst(ismissing, col)
     return hasmissing == nothing ? convert(AbstractVector{T}, col) : col
 end
 

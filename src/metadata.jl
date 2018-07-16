@@ -1,11 +1,6 @@
 module Metadata
 
-if Base.VERSION < v"0.7.0-DEV.2575"
-    const Dates = Base.Dates
-    using Compat
-else
-    import Dates
-end
+import Dates
 
 using FlatBuffers
 

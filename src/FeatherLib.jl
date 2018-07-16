@@ -1,20 +1,11 @@
 __precompile__(true)
 module FeatherLib
 
-using Arrow, Compat, Compat.Mmap
-using FlatBuffers, CategoricalArrays
-
-using Compat.Sys: iswindows
+using Arrow, FlatBuffers, CategoricalArrays, Mmap
 
 export featherread, featherwrite
 
-if Base.VERSION < v"0.7.0-DEV.2575"
-    const Dates = Base.Dates
-    using Missings
-    using Compat: @warn
-else
-    import Dates
-end
+import Dates
 
 const FEATHER_VERSION = 2
 # wesm/feather/cpp/src/common.h
