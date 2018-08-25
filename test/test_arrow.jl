@@ -1,3 +1,4 @@
+using Random
 
 const SEED = 999
 const NROWS = 128
@@ -6,7 +7,7 @@ const N_IDX_TESTS = 16
 arrow_tempname = tempname()
 push!(temps, arrow_tempname)
 
-srand(SEED)
+Random.seed!(SEED)
 
 randdate() = Date(rand(0:4000), rand(1:12), rand(1:27))
 randtime() = Dates.Time(rand(0:23), rand(0:59), rand(0:59))

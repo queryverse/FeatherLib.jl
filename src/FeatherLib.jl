@@ -1,4 +1,3 @@
-__precompile__(true)
 module FeatherLib
 
 using Arrow, FlatBuffers, CategoricalArrays, Mmap
