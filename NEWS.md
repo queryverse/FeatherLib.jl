@@ -1,3 +1,6 @@
+# FeatherLib.jl v0.1.1
+* Fix remaining julia 0.7/1.0 compat issues
+
 # FeatherLib.jl v0.1.0
 * Drop julia 0.6 support, add julia 0.7 support
 
