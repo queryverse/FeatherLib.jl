@@ -143,7 +143,13 @@ function juliatype(col::Metadata.Column)
     col.values.null_count == 0 ? T : Union{T,Missing}
 end
 
-feathertype(::Type{T}) where T = METADATA_TYPE_DICT[T]
+function feathertype(::Type{T}) where T
+    if !haskey(METADATA_TYPE_DICT, T)
+        throw(ArgumentError("Type $T is not supported by the Feather format."))
+    else
+        return METADATA_TYPE_DICT[T]
+    end
+end
 feathertype(::Type{Union{T,Missing}}) where T = feathertype(T)
 feathertype(::Type{<:Arrow.Datestamp}) = Metadata.INT32
 feathertype(::Type{<:Arrow.Timestamp}) = Metadata.INT64
