@@ -1,3 +1,6 @@
+# FeatherLib.jl v0.1.3
+* Fix a method ambiguity bug on julia 1.1
+
 # FeatherLib.jl v0.1.2
 * Improve error message
 
