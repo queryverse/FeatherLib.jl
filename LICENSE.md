@@ -1,6 +1,6 @@
 The Feather.jl package is licensed under the MIT "Expat" License:
 
-> Copyright (c) 2016-2018: Douglas Bates, Jacob Quinn, Expanding Man,
+> Copyright (c) 2016-2019: Douglas Bates, Jacob Quinn, Expanding Man,
 > David Anthoff and other contributors.
 >
 > Permission is hereby granted, free of charge, to any person obtaining
