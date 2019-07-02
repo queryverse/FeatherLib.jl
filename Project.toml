@@ -1,6 +1,6 @@
 name = "FeatherLib"
 uuid = "409f5150-fb84-534f-94db-80d1e10f57e1"
-version = "1.0.0-DEV"
+version = "0.2.1-DEV"
 
 [deps]
 Arrow = "69666777-d1a9-59fb-9406-91d4454c9d45"
