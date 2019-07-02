@@ -1,6 +1,7 @@
-# FeatherLib.jl v1.0.0
+# FeatherLib.jl v0.2.0
 * Drop julia 0.7 support
 * Move to Project.toml
+* Fix a test dependency
 
 # FeatherLib.jl v0.1.3
 * Fix a method ambiguity bug on julia 1.1
