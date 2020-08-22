@@ -43,7 +43,7 @@ function writecontents(::Type{Metadata.PrimitiveArray}, io::IO, A::ArrowVector)
     a = position(io)
     writecontents(io, A)
     b = position(io)
-    Metadata.PrimitiveArray(A, a, b-a)
+    Metadata.PrimitiveArray(A, a, b - a)
 end
 
 
@@ -55,7 +55,7 @@ end
 
 function writemetadata(io::IO, ctable::Metadata.CTable)
     meta = FlatBuffers.build!(ctable)
-    rng = (meta.head+1):length(meta.bytes)
+    rng = (meta.head + 1):length(meta.bytes)
     writepadded(io, view(meta.bytes, rng))
     Int32(length(rng))
 end

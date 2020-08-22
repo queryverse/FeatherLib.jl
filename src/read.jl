@@ -15,12 +15,12 @@ function featherread(filename::AbstractString; use_mmap=true)
     return ResultSet(columns, colnames, ctable.description, ctable.metadata)
 end
 
-#=====================================================================================================
+#= ====================================================================================================
     new column construction stuff
-=====================================================================================================#
+==================================================================================================== =#
 Base.length(p::Metadata.PrimitiveArray) = p.length
 
-startloc(p::Metadata.PrimitiveArray) = p.offset+1
+startloc(p::Metadata.PrimitiveArray) = p.offset + 1
 
 Arrow.nullcount(p::Metadata.PrimitiveArray) = p.null_count
 
@@ -29,7 +29,7 @@ function bitmasklength(p::Metadata.PrimitiveArray)
 end
 
 function offsetslength(p::Metadata.PrimitiveArray)
-    isprimitivetype(p.dtype) ? 0 : padding((length(p)+1)*sizeof(Int32))
+    isprimitivetype(p.dtype) ? 0 : padding((length(p) + 1) * sizeof(Int32))
 end
 
 valueslength(p::Metadata.PrimitiveArray) = p.total_bytes - offsetslength(p) - bitmasklength(p)

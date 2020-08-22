@@ -6,7 +6,7 @@ function validatefile(filename::AbstractString, data::AbstractVector{UInt8})
         throw(ArgumentError("'$file' is not in feather format: total length of file: $(length(data))"))
     end    
     header = data[1:4]
-    footer = data[(end-3):end]
+    footer = data[(end - 3):end]
     if header ≠ FEATHER_MAGIC_BYTES || footer ≠ FEATHER_MAGIC_BYTES
         throw(ArgumentError(string("'$filename' is not in feather format: header = $header, ",
             "footer = $footer.")))
@@ -21,15 +21,15 @@ function loadfile(filename::AbstractString; use_mmap::Bool=true)
 end
 
 function metalength(data::AbstractVector{UInt8})
-    read(IOBuffer(data[(length(data)-7):(length(data)-4)]), Int32)
+    read(IOBuffer(data[(length(data) - 7):(length(data) - 4)]), Int32)
 end
 
 function metaposition(data::AbstractVector{UInt8}, metalen::Integer=metalength(data))
-    length(data) - (metalen+7)
+    length(data) - (metalen + 7)
 end
 
 function rootposition(data::AbstractVector{UInt8}, mpos::Integer=metaposition(data))
-    read(IOBuffer(data[mpos:(mpos+4)]), Int32)
+    read(IOBuffer(data[mpos:(mpos + 4)]), Int32)
 end
 
 function getctable(data::AbstractVector{UInt8})

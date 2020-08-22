@@ -1,14 +1,14 @@
 using Documenter, FeatherLib
 
 makedocs(
-	modules = [FeatherLib],
-	sitename = "FeatherLib.jl",
+	modules=[FeatherLib],
+	sitename="FeatherLib.jl",
 	analytics="UA-132838790-1",
-	pages = [
+	pages=[
         "Introduction" => "index.md"
     ]
 )
 
 deploydocs(
-    repo = "github.com/queryverse/FeatherLib.jl.git"
+    repo="github.com/queryverse/FeatherLib.jl.git"
 )

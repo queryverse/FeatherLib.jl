@@ -29,7 +29,7 @@ mutable struct CategoryMetadata
     ordered::Bool
 end
 
-@DEFAULT CategoryMetadata ordered=false
+@DEFAULT CategoryMetadata ordered = false
 
 mutable struct TimestampMetadata
     unit::TimeUnit
@@ -43,7 +43,7 @@ mutable struct TimeMetadata
     unit::TimeUnit
 end
 
-@UNION TypeMetadata (Nothing,CategoryMetadata,TimestampMetadata,DateMetadata,TimeMetadata)
+@UNION TypeMetadata (Nothing, CategoryMetadata, TimestampMetadata, DateMetadata, TimeMetadata)
 
 mutable struct Column
     name::String
@@ -119,7 +119,7 @@ const JULIA_TIME_DICT = Dict{Metadata.TimeUnit,DataType}(
     Metadata.MICROSECOND => Dates.Microsecond,
     Metadata.NANOSECOND => Dates.Nanosecond
 )
-const METADATA_TIME_DICT = Dict{DataType,Metadata.TimeUnit}(v=>k for (k,v) in JULIA_TIME_DICT)
+const METADATA_TIME_DICT = Dict{DataType,Metadata.TimeUnit}(v => k for (k, v) in JULIA_TIME_DICT)
 
 
 isprimitivetype(t::Metadata.DType) = t ∉ NON_PRIMITIVE_TYPES
@@ -171,4 +171,4 @@ function getmetadata(io::IO, ::Type{T}, A::DictEncoding) where T
     Metadata.CategoryMetadata(vals, true)
 end
 
-getmetadata(io::IO, ::Type{Union{Missing, T}}, A::DictEncoding) where T = getmetadata(io, T, A)
+getmetadata(io::IO, ::Type{Union{Missing,T}}, A::DictEncoding) where T = getmetadata(io, T, A)

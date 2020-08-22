@@ -5,21 +5,21 @@ temps = []
 
 @testset "FeatherLib" begin
 
-include("test_readwrite.jl")
-include("test_arrow.jl")
+    include("test_readwrite.jl")
+    include("test_arrow.jl")
 
-GC.gc(); GC.gc()
-for t in temps
-    try
-        rm(t)
-    catch
-        GC.gc()
+    GC.gc(); GC.gc()
+    for t in temps
         try
             rm(t)
         catch
+            GC.gc()
+            try
+                rm(t)
+            catch
+            end
         end
     end
-end
 
 # issue #34
 # data = DataFrame(A=Union{Missing, String}[randstring(10) for i ∈ 1:100], B=rand(100))
