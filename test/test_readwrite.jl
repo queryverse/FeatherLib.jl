@@ -1,4 +1,5 @@
-@testset "ReadWrite" begin
+@testitem "ReadWrite" begin
+    temps = []
 
     testdir = joinpath(@__DIR__, "data")
     files = map(x -> joinpath(testdir, x), readdir(testdir))
@@ -32,19 +33,18 @@
 
     @test res.description == res2.description
     @test res.metadata == res2.metadata
-    # for (col1,col2) in zip(source.ctable.columns,sink.ctable.columns)
-    #     @test col1.name == col2.name
-    #     @test col1.metadata_type == col2.metadata_type
-    #     @test typeof(col1.metadata) == typeof(col2.metadata)
-    #     @test col1.user_metadata == col2.user_metadata
+    end
 
-    #     v1 = col1.values; v2 = col2.values
-    #     @test v1.dtype == v2.dtype
-    #     @test v1.encoding == v2.encoding
-    #     # @test v1.offset == v2.offset # currently not python/R compatible due to wesm/feather#182
-    #     @test v1.length == v2.length
-    #     @test v1.null_count == v2.null_count
-    #     # @test v1.total_bytes == v2.total_bytes
-    # end
+    GC.gc(); GC.gc()
+    for t in temps
+        try
+            rm(t)
+        catch
+            GC.gc()
+            try
+                rm(t)
+            catch
+            end
+        end
     end
 end
