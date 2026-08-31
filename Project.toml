@@ -13,7 +13,7 @@ Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 [compat]
 Arrow = "0.2.1 - 0.4"
 CategoricalArrays = "0.3.13 - 0.10"
-FlatBuffers = "0.4, 0.5"
+FlatBuffers = "0.4, 0.5, 0.6"
 julia = "1"
 
 [extras]
