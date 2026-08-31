@@ -6,7 +6,9 @@
 
 ## Overview
 
-This is a low level package to read feather files. It is not meant to be used by end users, but rather as a building block for other packages that expose user friendly APIs for file IO.
+This is a low level package to read and write **Feather V1** files (the original `FEA1` format from [wesm/feather](https://github.com/wesm/feather)). It is not meant to be used by end users, but rather as a building block for other packages that expose user friendly APIs for file IO.
+
+Note that Feather V1 is not the same format as Feather V2, which is exactly the Arrow IPC file format on disk and is what every current tool writes, whether the file is named `.feather` or `.arrow`. This package does not read V2 files; use [Arrow.jl](https://github.com/apache/arrow-julia) for those.
 
 End users are encouraged to use either [FeatherFiles.jl](https://github.com/queryverse/FeatherFiles.jl) or [Feather.jl](https://github.com/JuliaData/Feather.jl) to interact with feather files.
 

@@ -2,7 +2,7 @@
     using Dates
     using CategoricalArrays
     using Random
-    using Arrow
+    using FeatherLib: ArrowCompat
 
     SEED = 999
     NROWS = 128
@@ -42,19 +42,19 @@
 
     @test ndf.names == colnames
 
-    @test typeof(ndf.columns[1]) == Arrow.Primitive{Int32}
-    @test typeof(ndf.columns[2]) == Arrow.Primitive{Float64}
-    @test typeof(ndf.columns[3]) == Arrow.Primitive{Arrow.Datestamp}
-    @test typeof(ndf.columns[4]) == Arrow.Primitive{Arrow.Timestamp{Dates.Millisecond}}
-    @test typeof(ndf.columns[5]) == Arrow.Primitive{Arrow.TimeOfDay{Dates.Nanosecond,Int64}}
-    @test typeof(ndf.columns[6]) == Arrow.NullablePrimitive{Int64}
-    @test typeof(ndf.columns[7]) == Arrow.List{String,Arrow.DefaultOffset,Arrow.Primitive{UInt8}}
-    @test typeof(ndf.columns[8]) == Arrow.NullableList{String,Arrow.DefaultOffset,Arrow.Primitive{UInt8}}
-    @test typeof(ndf.columns[9]) == Arrow.DictEncoding{String,Arrow.Primitive{Int32},
-        Arrow.List{String,Arrow.DefaultOffset,Arrow.Primitive{UInt8}}}
+    @test typeof(ndf.columns[1]) == ArrowCompat.Primitive{Int32}
+    @test typeof(ndf.columns[2]) == ArrowCompat.Primitive{Float64}
+    @test typeof(ndf.columns[3]) == ArrowCompat.Primitive{ArrowCompat.Datestamp}
+    @test typeof(ndf.columns[4]) == ArrowCompat.Primitive{ArrowCompat.Timestamp{Dates.Millisecond}}
+    @test typeof(ndf.columns[5]) == ArrowCompat.Primitive{ArrowCompat.TimeOfDay{Dates.Nanosecond,Int64}}
+    @test typeof(ndf.columns[6]) == ArrowCompat.NullablePrimitive{Int64}
+    @test typeof(ndf.columns[7]) == ArrowCompat.List{String,ArrowCompat.DefaultOffset,ArrowCompat.Primitive{UInt8}}
+    @test typeof(ndf.columns[8]) == ArrowCompat.NullableList{String,ArrowCompat.DefaultOffset,ArrowCompat.Primitive{UInt8}}
+    @test typeof(ndf.columns[9]) == ArrowCompat.DictEncoding{String,ArrowCompat.Primitive{Int32},
+        ArrowCompat.List{String,ArrowCompat.DefaultOffset,ArrowCompat.Primitive{UInt8}}}
     @test typeof(ndf.columns[10]) ==
-            Arrow.DictEncoding{Union{String,Missing},Arrow.NullablePrimitive{Int32},Arrow.List{String,Arrow.DefaultOffset,
-            Arrow.Primitive{UInt8}}}
+            ArrowCompat.DictEncoding{Union{String,Missing},ArrowCompat.NullablePrimitive{Int32},ArrowCompat.List{String,ArrowCompat.DefaultOffset,
+            ArrowCompat.Primitive{UInt8}}}
 
     for j ∈ 1:N_IDX_TESTS
         i = rand(1:NROWS)

@@ -22,7 +22,7 @@ Base.length(p::Metadata.PrimitiveArray) = p.length
 
 startloc(p::Metadata.PrimitiveArray) = p.offset+1
 
-Arrow.nullcount(p::Metadata.PrimitiveArray) = p.null_count
+ArrowCompat.nullcount(p::Metadata.PrimitiveArray) = p.null_count
 
 function bitmasklength(p::Metadata.PrimitiveArray)
     nullcount(p) == 0 ? 0 : padding(bytesforbits(length(p)))
