@@ -151,18 +151,18 @@ function feathertype(::Type{T}) where T
     end
 end
 feathertype(::Type{Union{T,Missing}}) where T = feathertype(T)
-feathertype(::Type{<:Arrow.Datestamp}) = Metadata.INT32
-feathertype(::Type{<:Arrow.Timestamp}) = Metadata.INT64
-feathertype(::Type{<:Arrow.TimeOfDay{P,Int32}}) where P = Metadata.INT32
-feathertype(::Type{<:Arrow.TimeOfDay{P,Int64}}) where P = Metadata.INT64
+feathertype(::Type{<:ArrowCompat.Datestamp}) = Metadata.INT32
+feathertype(::Type{<:ArrowCompat.Timestamp}) = Metadata.INT64
+feathertype(::Type{<:ArrowCompat.TimeOfDay{P,Int32}}) where P = Metadata.INT32
+feathertype(::Type{<:ArrowCompat.TimeOfDay{P,Int64}}) where P = Metadata.INT64
 
 getmetadata(io::IO, ::Type{T}, A::ArrowVector) where T = nothing
 getmetadata(io::IO, ::Type{Union{T,Missing}}, A::ArrowVector) where T = getmetadata(io, T, A)
-getmetadata(io::IO, ::Type{Arrow.Datestamp}, A::ArrowVector) = Metadata.DateMetadata()
-function getmetadata(io::IO, ::Type{Arrow.Timestamp{T}}, A::ArrowVector) where T
+getmetadata(io::IO, ::Type{ArrowCompat.Datestamp}, A::ArrowVector) = Metadata.DateMetadata()
+function getmetadata(io::IO, ::Type{ArrowCompat.Timestamp{T}}, A::ArrowVector) where T
     Metadata.TimestampMetadata(METADATA_TIME_DICT[T], "")
 end
-function getmetadata(io::IO, ::Type{Arrow.TimeOfDay{P,T}}, A::ArrowVector) where {P,T}
+function getmetadata(io::IO, ::Type{ArrowCompat.TimeOfDay{P,T}}, A::ArrowVector) where {P,T}
     Metadata.TimeMetadata(METADATA_TIME_DICT[P])
 end
 # WARNINGMDATA_TYPE_DICT Arrow standard says nothing about specifying whether DictEncoding is ordered!

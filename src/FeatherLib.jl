@@ -1,6 +1,6 @@
 module FeatherLib
 
-using Arrow, FlatBuffers, CategoricalArrays, Mmap
+using FlatBuffers, CategoricalArrays, Mmap
 
 export featherread, featherwrite
 
@@ -11,6 +11,9 @@ const FEATHER_VERSION = 2
 const FEATHER_MAGIC_BYTES = Vector{UInt8}(codeunits("FEA1"))
 const MIN_FILE_LENGTH = 12
 
+
+include("arrow/ArrowCompat.jl")
+using .ArrowCompat
 
 include("metadata.jl")  # flatbuffer defintions
 include("loadfile.jl")
