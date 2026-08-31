@@ -1,6 +1,4 @@
 @testitem "ReadWrite" begin
-    temps = []
-
     testdir = joinpath(@__DIR__, "data")
     files = map(x -> joinpath(testdir, x), readdir(testdir))
 
@@ -12,7 +10,6 @@
         nrows = length(columns[1])
 
         temp = tempname()
-        push!(temps, temp)
 
         featherwrite(temp, columns, headers, description=res.description, metadata=res.metadata)
 
@@ -33,18 +30,12 @@
 
     @test res.description == res2.description
     @test res.metadata == res2.metadata
-    end
 
-    GC.gc(); GC.gc()
-    for t in temps
-        try
-            rm(t)
-        catch
-            GC.gc()
-            try
-                rm(t)
-            catch
-            end
-        end
+        # Both ResultSets memory map their file, which on Windows keeps it locked. This
+        # used to need a GC.gc() dance with nested try/catch to clean up; close! releases
+        # the mappings deterministically instead.
+        close!(res)
+        close!(res2)
+        rm(temp)
     end
 end

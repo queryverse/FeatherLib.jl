@@ -14,7 +14,7 @@ End users are encouraged to use either [FeatherFiles.jl](https://github.com/quer
 
 ## Getting Started
 
-The package exports two functions: ``featherread`` and ``featherwrite``.
+The package exports three functions: ``featherread``, ``featherwrite`` and ``close!``.
 
 Use the ``featherread`` function to read a feather file:
 ````julia
@@ -29,6 +29,33 @@ featherwrite("testfile.feather", column_data, column_names)
 ````
 
 ``columns`` should be a vector of vectors that holds the data to be written. ``column_names`` should be a vector of ``Symbol``s with the column names.
+
+### Reading and writing streams
+
+Both functions also accept any ``IO``, and ``featherread`` additionally accepts a ``Vector{UInt8}`` holding the contents of a feather file:
+
+````julia
+data = open(featherread, "testfile.feather")
+data = featherread(read("testfile.feather"))
+
+buffer = IOBuffer()
+featherwrite(buffer, column_data, column_names)
+````
+
+### Releasing the file
+
+Columns are read lazily: they refer back into the file's bytes rather than copying them. When reading from a filename, those bytes are a memory mapping by default, and on Windows a live mapping keeps the file locked against deletion or overwriting.
+
+Call ``close!`` when you are done with a ``ResultSet`` to release the mapping:
+
+````julia
+data = featherread("testfile.feather")
+# ... use data ...
+close!(data)
+rm("testfile.feather")   # now succeeds on Windows too
+````
+
+``close!`` is idempotent, and does nothing for a ``ResultSet`` that was not memory mapped. Afterwards the columns of the closed ``ResultSet`` throw on access. Note that a column pulled out beforehand, as in ``col = data.columns[1]``, still refers into the mapping and must not be used after ``close!``. Passing ``use_mmap=false`` to ``featherread`` avoids mapping in the first place.
 
 ## Acknowledgements
 

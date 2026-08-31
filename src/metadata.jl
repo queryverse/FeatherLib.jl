@@ -165,7 +165,7 @@ end
 function getmetadata(io::IO, ::Type{ArrowCompat.TimeOfDay{P,T}}, A::ArrowVector) where {P,T}
     Metadata.TimeMetadata(METADATA_TIME_DICT[P])
 end
-# WARNINGMDATA_TYPE_DICT Arrow standard says nothing about specifying whether DictEncoding is ordered!
+# WARNING Arrow standard says nothing about specifying whether DictEncoding is ordered!
 function getmetadata(io::IO, ::Type{T}, A::DictEncoding) where T
     vals = writecontents(Metadata.PrimitiveArray, io, levels(A))
     Metadata.CategoryMetadata(vals, true)

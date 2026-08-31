@@ -2,7 +2,7 @@ module FeatherLib
 
 using FlatBuffers, CategoricalArrays, Mmap
 
-export featherread, featherwrite
+export featherread, featherwrite, close!
 
 import Dates
 
@@ -10,6 +10,8 @@ const FEATHER_VERSION = 2
 # wesm/feather/cpp/src/common.h
 const FEATHER_MAGIC_BYTES = Vector{UInt8}(codeunits("FEA1"))
 const MIN_FILE_LENGTH = 12
+# A feather file can be read from a path, from any IO, or straight out of a byte buffer.
+const FilenameOrIO = Union{<:IO,<:AbstractString,<:AbstractVector{UInt8}}
 
 
 include("arrow/ArrowCompat.jl")
