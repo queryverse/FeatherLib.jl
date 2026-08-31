@@ -92,7 +92,7 @@ Datestamp(t::Date) = convert(Datestamp, t)
 value(t::Datestamp) = t.value
 
 Base.convert(::Type{Date}, t::Datestamp) = Date(Dates.UTD(UNIXEPOCH_DT + value(t)))
-Base.convert(::TimeType, t::Datestamp) = convert(Date, t)
+Base.convert(::Type{TimeType}, t::Datestamp) = convert(Date, t)
 
 Base.convert(::Type{Datestamp}, t::Date) = Datestamp(Dates.value(t) - UNIXEPOCH_DT)
 Base.convert(::Type{ArrowTime}, t::Date) = convert(Datestamp, t)
